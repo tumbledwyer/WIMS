@@ -101,3 +101,4 @@ source/UpgradeLog2.htm
 # Web libraries
 
 source/.vs
+node_modules/
