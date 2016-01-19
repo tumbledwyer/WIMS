@@ -1,0 +1,25 @@
+﻿@using System.Activities.Statements
+@using WhereIsMyShit.Controllers
+@using WhereIsMyShit.Models
+@model List<WhereIsMyShit.Models.ItemModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>List of my stuff</h2>
+
+@Html.ActionLink("Add", "Add", "Items")
+
+<table>
+    @foreach (var model in Model)
+    {
+        <tr>
+            <td>@Html.Label(model.Name)</td>
+        </tr>
+    }
+    
+</table>
+
+
+
