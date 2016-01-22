@@ -12,12 +12,6 @@ namespace WhereIsMyShit.Controllers
     {
         private readonly IItemRepository _itemRepository;
 
-
-        //public ItemsController()
-        //{
-            
-        //}
-
         public ItemsController(IItemRepository itemRepository)
         {
             _itemRepository = itemRepository;
@@ -32,13 +26,20 @@ namespace WhereIsMyShit.Controllers
         [HttpPost]
         public ActionResult Add(ItemModel itemModel)
         {
-            //_itemModels.Add(itemModel);
-            return View(itemModel);
+            if (!ModelState.IsValid) return View("Add", itemModel);
+            _itemRepository.Add(itemModel);
+            return RedirectToAction("Index");
         }
 
         public ActionResult Add()
         {
+            //return View();
             return View();
         }
+
+        //public ActionResult Delete(ItemModel item)
+        //{
+        //    return View("Index");
+        //}
     }
 }
