@@ -37,7 +37,6 @@ namespace WhereIsMyShit.Controllers
         }
 
         //TODO Make this a post
-        [HttpPost]
         public ActionResult Delete(string itemName)
         {
             if (_itemRepository.FindByName(itemName) != null)
