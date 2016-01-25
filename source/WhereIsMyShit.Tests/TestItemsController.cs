@@ -58,7 +58,7 @@ namespace WhereIsMyShit.Tests
         public void Add_GivenValidItem_ShouldAddItemToCatalogue()
         {
             //---------------Set up test pack-------------------
-            var itemRepository = new InMemoryItemRepository();
+            var itemRepository = CreateConcreteRepository();
             var itemsController = CreateSut(itemRepository);
             var item = CreateItem("something");
             var itemModels = itemRepository.GetItems();
@@ -75,7 +75,7 @@ namespace WhereIsMyShit.Tests
         public void Add_GivenValidationError_ShouldNotAddItemToCatalogue()
         {
             //---------------Set up test pack-------------------
-            var itemRepository = new InMemoryItemRepository();
+            var itemRepository = CreateConcreteRepository();
             var itemsController = CreateSut(itemRepository);
             itemsController.ModelState.AddModelError("Name", "cake");
             var itemModel = CreateItem("");
@@ -115,7 +115,7 @@ namespace WhereIsMyShit.Tests
         }
         
         [Test]
-        public void Add_GivenValidationError_ShouldRetuenTheModel()
+        public void Add_GivenValidationError_ShouldReturnTheModel()
         {
             //---------------Set up test pack-------------------
             var itemsController = CreateSut();
@@ -127,26 +127,81 @@ namespace WhereIsMyShit.Tests
             Assert.AreEqual(itemModel, actionResult.Model);
         }
 
-        //[Test]
-        //public void Delete_GivenItem_ShouldRemoveItemFromCatalogue()
-        //{
-        //    //---------------Set up test pack-------------------
-        //    var repository = new InMemoryItemRepository();
-        //    var itemsController = CreateSut(repository);
-        //    var item = CreateItem("Bob");
-        //    repository.Add(item);
-        //    //---------------Assert Precondition----------------
-        //    //---------------Execute Test ----------------------
-        //    itemsController.Delete(item);
-        //    //---------------Test Result -----------------------
-        //    var items = repository.GetItems();
-        //    CollectionAssert.DoesNotContain(items, item);
-        //}
-        
+        [Test]
+        public void Delete_GivenItem_ShouldRemoveItemFromCatalogue()
+        {
+            //---------------Set up test pack-------------------
+            var repository = CreateConcreteRepository();
+            var itemsController = CreateSut(repository);
+            var item = CreateItem("Bob");
+            repository.Add(item);
+            //---------------Assert Precondition----------------
+            //---------------Execute Test ----------------------
+            itemsController.Delete(item.Name);
+            //---------------Test Result -----------------------
+            var items = repository.GetItems();
+            CollectionAssert.DoesNotContain(items, item);
+        }
+
+        [Test]
+        public void Delete_GivenItem_ShouldShowCatalogueOfRemainingItems()
+        {
+            //---------------Set up test pack-------------------
+            var repository = CreateConcreteRepository();
+            var itemsController = CreateSut(repository);
+            var item = CreateItem("Dvd");
+            repository.Add(item);
+            //---------------Assert Precondition----------------
+            //---------------Execute Test ----------------------
+            var actionResult = itemsController.Delete(item.Name) as RedirectToRouteResult;
+            //---------------Test Result -----------------------
+            Assert.AreEqual("Index", actionResult.RouteValues["action"]);
+        }
+
+        [Test]
+        public void Delete_GivenItemThatDoesntExist_ShouldDeleteNothingAndShowCatalogue()
+        {
+            //---------------Set up test pack-------------------
+            var repository = CreateConcreteRepository();
+            var itemsController = CreateSut(repository);
+            var item = CreateItem("Dvd");
+            var item2 = CreateItem("Box");
+            repository.Add(item);
+            //---------------Assert Precondition----------------
+            //---------------Execute Test ----------------------
+            var actionResult = itemsController.Delete(item2.Name) as RedirectToRouteResult;
+            var itemModels = repository.GetItems();
+            //---------------Test Result -----------------------
+            CollectionAssert.AreEquivalent(new[] {item}, itemModels);
+            Assert.AreEqual("Index", actionResult.RouteValues["action"]);
+        }
+
+        [Test]
+        public void Delete_GivenItemThatDoesntExist_ShouldNotDeleteItem()
+        {
+            //---------------Set up test pack-------------------
+            var repository = Substitute.For<IItemRepository>();
+            var itemsController = CreateSut(repository);
+            var item = CreateItem("Chair");
+            repository.GetItems().Returns(new List<ItemModel> {item});
+            var item2 = CreateItem();
+            //---------------Assert Precondition----------------
+            //---------------Execute Test ----------------------
+            itemsController.Delete(item2.Name);
+            //---------------Test Result -----------------------
+            repository.DidNotReceive().Delete(item2.Name);
+        }
+
+
         private static ItemsController CreateSut(IItemRepository itemRepository = null)
         {
             itemRepository = itemRepository ?? Substitute.For<IItemRepository>();
             return new ItemsController(itemRepository);
+        }
+
+        private static InMemoryItemRepository CreateConcreteRepository()
+        {
+            return new InMemoryItemRepository();
         }
 
         private static ItemModel CreateItem(string name = null)

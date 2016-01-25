@@ -33,13 +33,18 @@ namespace WhereIsMyShit.Controllers
 
         public ActionResult Add()
         {
-            //return View();
             return View();
         }
 
-        //public ActionResult Delete(ItemModel item)
-        //{
-        //    return View("Index");
-        //}
+        //TODO Make this a post
+        [HttpPost]
+        public ActionResult Delete(string itemName)
+        {
+            if (_itemRepository.FindByName(itemName) != null)
+            {
+                _itemRepository.Delete(itemName);
+            }
+            return RedirectToAction("Index");
+        }
     }
 }
