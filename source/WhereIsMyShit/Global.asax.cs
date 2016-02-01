@@ -26,18 +26,16 @@ namespace WhereIsMyShit
             ControllerBuilder.Current.SetControllerFactory(new ControllerFactory(windsorContainer));
         }
 
-
+        //TODO refactor and test
         private IWindsorContainer Init()
         {
             var container = new WindsorContainer();
             container.Register(Component.For<IItemRepository>().ImplementedBy<InMemoryItemRepository>());
-
             var contollers = Assembly.GetExecutingAssembly().GetTypes().Where(x => x.BaseType == typeof(Controller)).ToList();
             foreach (var controller in contollers)
             {
                 container.Register(Component.For(controller).LifestylePerWebRequest());
             }
-
             return container;
         }
     }

@@ -3,14 +3,6 @@ using WhereIsMyShit.Models;
 
 namespace WhereIsMyShit.App_Start
 {
-    public interface IItemRepository
-    {
-        List<ItemModel> GetItems();
-        void Add(ItemModel item);
-        void Delete(string itemName);
-        ItemModel FindByName(string name);
-    }
-
     public class InMemoryItemRepository : IItemRepository
     {
         private readonly List<ItemModel> _itemModels = new List<ItemModel>();
