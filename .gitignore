@@ -102,3 +102,6 @@ source/UpgradeLog2.htm
 
 source/.vs
 node_modules/
+
+*.ldf
+*.mdf

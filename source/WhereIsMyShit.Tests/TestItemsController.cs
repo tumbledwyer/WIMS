@@ -44,7 +44,7 @@ namespace WhereIsMyShit.Tests
             var itemsController = CreateSut(itemRepository);
             var itemModel = CreateItem();
             var itemModel2 = CreateItem();
-            var itemModels = new List<ItemModel> { itemModel, itemModel2};
+            var itemModels = new List<LoanItem> { itemModel, itemModel2};
             itemRepository.GetItems().Returns(itemModels);
             //---------------Assert Precondition----------------
             //---------------Execute Test ----------------------
@@ -183,7 +183,7 @@ namespace WhereIsMyShit.Tests
             var repository = Substitute.For<IItemRepository>();
             var itemsController = CreateSut(repository);
             var item = CreateItem("Chair");
-            repository.GetItems().Returns(new List<ItemModel> {item});
+            repository.GetItems().Returns(new List<LoanItem> {item});
             var item2 = CreateItem();
             //---------------Assert Precondition----------------
             //---------------Execute Test ----------------------
@@ -204,9 +204,9 @@ namespace WhereIsMyShit.Tests
             return new InMemoryItemRepository();
         }
 
-        private static ItemModel CreateItem(string name = null)
+        private static LoanItem CreateItem(string name = null)
         {
-            return new ItemModel {Name = name};
+            return new LoanItem {Name = name};
         }
     }
 }

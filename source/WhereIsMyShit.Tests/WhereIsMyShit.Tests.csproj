@@ -30,6 +30,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FluentMigrator, Version=1.0.0.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentMigrator.1.0.1.0\lib\40\FluentMigrator.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
@@ -42,7 +54,40 @@
       <HintPath>..\packages\NUnit.3.0.1\lib\net45\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="PeanutButter.FluentMigrator, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PeanutButter.FluentMigrator.1.1.0\lib\net40\PeanutButter.FluentMigrator.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PeanutButter.RandomGenerators, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PeanutButter.RandomGenerators.1.1.0\lib\net40\PeanutButter.RandomGenerators.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PeanutButter.TempDb, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PeanutButter.TempDb.1.1.28\lib\net40\PeanutButter.TempDb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PeanutButter.TempDb.LocalDb, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PeanutButter.TempDb.LocalDb.1.1.28\lib\net40\PeanutButter.TempDb.LocalDb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PeanutButter.TestUtils.Entity, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PeanutButter.TestUtils.Entity.1.1.28\lib\net40\PeanutButter.TestUtils.Entity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PeanutButter.TestUtils.Generic, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PeanutButter.TestUtils.Generic.1.1.0\lib\net40\PeanutButter.TestUtils.Generic.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PeanutButter.Utils, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PeanutButter.Utils.1.1.0\lib\net40\PeanutButter.Utils.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PeanutButter.Utils.Entity, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PeanutButter.Utils.Entity.1.1.0\lib\net40\PeanutButter.Utils.Entity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -77,8 +122,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CatalogueDbContextPersistenceTestFixtureBase.cs" />
     <Compile Include="TestHomeController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestItemRepository.cs" />
     <Compile Include="TestItemsController.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -90,6 +137,9 @@
       <Project>{7B50A189-514C-44AF-B534-E02FAB8534FC}</Project>
       <Name>WhereIsMyShit</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="GenericBuilderTests-ExampleUsage.cs.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

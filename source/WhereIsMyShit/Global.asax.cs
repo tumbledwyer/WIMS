@@ -30,7 +30,7 @@ namespace WhereIsMyShit
         private IWindsorContainer Init()
         {
             var container = new WindsorContainer();
-            container.Register(Component.For<IItemRepository>().ImplementedBy<InMemoryItemRepository>());
+            container.Register(Component.For<IItemRepository>().UsingFactoryMethod(() => new ItemRepository(new CatalogueDbContext())));
             var contollers = Assembly.GetExecutingAssembly().GetTypes().Where(x => x.BaseType == typeof(Controller)).ToList();
             foreach (var controller in contollers)
             {

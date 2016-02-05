@@ -5,9 +5,9 @@ namespace WhereIsMyShit.App_Start
 {
     public interface IItemRepository
     {
-        List<ItemModel> GetItems();
-        void Add(ItemModel item);
+        List<LoanItem> GetItems();
+        void Add(LoanItem loanItem);
         void Delete(string itemName);
-        ItemModel FindByName(string name);
+        LoanItem FindByName(string name);
     }
 }

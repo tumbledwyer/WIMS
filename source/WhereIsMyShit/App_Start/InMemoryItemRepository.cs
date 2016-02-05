@@ -5,16 +5,16 @@ namespace WhereIsMyShit.App_Start
 {
     public class InMemoryItemRepository : IItemRepository
     {
-        private readonly List<ItemModel> _itemModels = new List<ItemModel>();
+        private readonly List<LoanItem> _itemModels = new List<LoanItem>();
 
-        public List<ItemModel> GetItems()
+        public List<LoanItem> GetItems()
         {
             return _itemModels;
         }
 
-        public void Add(ItemModel item)
+        public void Add(LoanItem loanItem)
         {
-            _itemModels.Add(item);
+            _itemModels.Add(loanItem);
         }
 
         public void Delete(string itemName)
@@ -26,7 +26,7 @@ namespace WhereIsMyShit.App_Start
             }
         }
 
-        public ItemModel FindByName(string name)
+        public LoanItem FindByName(string name)
         {
             return _itemModels.Find(s => s.Name == name);
         }
