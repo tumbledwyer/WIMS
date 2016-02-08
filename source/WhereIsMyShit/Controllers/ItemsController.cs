@@ -37,11 +37,11 @@ namespace WhereIsMyShit.Controllers
         }
 
         //TODO Make this a post
-        public ActionResult Delete(string itemName)
+        public ActionResult Delete(int itemId)
         {
-            if (_itemRepository.FindByName(itemName) != null)
+            if (_itemRepository.FindById(itemId) != null)
             {
-                _itemRepository.Delete(itemName);
+                _itemRepository.Delete(itemId);
             }
             return RedirectToAction("Index");
         }

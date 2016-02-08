@@ -62,11 +62,10 @@ namespace WhereIsMyShit.Tests
             using (var localDb = new TempDBLocalDb())
             {
                 //todo factory method
-                var dbContext = new CatalogueDbContext(localDb.CreateConnection());
+                var dbContext = CreateDbContext(localDb);
                 var loanItem = new LoanItem { Name = "Chair"};
                 //todo refactor the add functionanlity to a private method
-                dbContext.Items.Add(loanItem);
-                dbContext.SaveChangesWithErrorReporting();
+                AddItem(dbContext, loanItem);
                 var itemRepository = CreateItemRepository(dbContext);
                 //---------------Assert Precondition----------------
                 //---------------Execute Test ----------------------
@@ -75,6 +74,150 @@ namespace WhereIsMyShit.Tests
                 CollectionAssert.AreEquivalent(new [] {loanItem}, loanItems);
             }
         }
+
+        [Test]
+        public void FindByName_GivenNoMatchingItemName_ShouldReturnNull()
+        {
+            //---------------Set up test pack-------------------
+            using (var localDb = new TempDBLocalDb())
+            {
+                var dbContext = CreateDbContext(localDb);
+                var loanItem = new LoanItem { Name = "Lamp"};
+                const string itemToFind = "Fan";
+                AddItem(dbContext, loanItem);
+                var itemRepository = CreateItemRepository(dbContext);
+                //---------------Assert Precondition----------------
+                //---------------Execute Test ----------------------
+                var foundItem = itemRepository.FindByName(itemToFind);
+                //---------------Test Result -----------------------
+                Assert.IsNull(foundItem);
+            }
+        }
+
+        [Test]
+        public void FindByName_GivenMatchingItemName_ShouldReturnLoanItem()
+        {
+            //---------------Set up test pack-------------------
+            using (var localDb = new TempDBLocalDb())
+            {
+                var dbContext = CreateDbContext(localDb);
+                var loanItem = new LoanItem { Name = "Lamp"};
+                const string itemToFind = "Lamp";
+                AddItem(dbContext, loanItem);
+                var itemRepository = CreateItemRepository(dbContext);
+                //---------------Assert Precondition----------------
+                //---------------Execute Test ----------------------
+                var foundItem = itemRepository.FindByName(itemToFind);
+                //---------------Test Result -----------------------
+                Assert.AreEqual(loanItem, foundItem);
+            }
+        }
+
+        [Test]
+        public void Add_GivenLoanItem_ShouldAddItCatalogue()
+        {
+            //---------------Set up test pack-------------------
+            using (var localDb = new TempDBLocalDb())
+            {
+                //---------------Assert Precondition----------------
+                var dbContext = CreateDbContext(localDb);
+                var itemRepository = CreateItemRepository(dbContext);
+                var loanItem = new LoanItem { Name = "Strat"};
+                //---------------Execute Test ----------------------
+                itemRepository.Add(loanItem);
+                //---------------Test Result -----------------------
+                var addedItem = dbContext.Items.Single(i => i.Name == "Strat");
+                Assert.AreEqual(loanItem, addedItem);
+            }
+        }
+
+        [Test]
+        public void FindById_GivenMatchingItemId_ShouldReturnLoanItem()
+        {
+            //---------------Set up test pack-------------------
+            using (var localDb = new TempDBLocalDb())
+            {
+                var dbContext = CreateDbContext(localDb);
+                var loanItem = new LoanItem {  Name = "Lamp" };
+                AddItem(dbContext, loanItem);
+                var id = dbContext.Items.Single(i => i.Name == "Lamp").Id;
+                var itemRepository = CreateItemRepository(dbContext);
+                //---------------Assert Precondition----------------
+                //---------------Execute Test ----------------------
+                var foundItem = itemRepository.FindById(id);
+                //---------------Test Result -----------------------
+                Assert.AreEqual(loanItem, foundItem);
+            }
+        }
+
+        [Test]
+        public void FindById_GivenMatchingNoItemId_ShouldReturnNull()
+        {
+            //---------------Set up test pack-------------------
+            using (var localDb = new TempDBLocalDb())
+            {
+                var dbContext = CreateDbContext(localDb);
+                var loanItem = new LoanItem {  Name = "Lamp" };
+                AddItem(dbContext, loanItem);
+                var itemRepository = CreateItemRepository(dbContext);
+                //---------------Assert Precondition----------------
+                //---------------Execute Test ----------------------
+                var foundItem = itemRepository.FindById(777);
+                //---------------Test Result -----------------------
+                Assert.IsNull(foundItem);
+            }
+        }
+
+        [Test]
+        public void Delete_GivenMatchingNoItemId_ShouldNotDeleteAnyItems()
+        {
+            //---------------Set up test pack-------------------
+            using (var localDb = new TempDBLocalDb())
+            {
+                var dbContext = CreateDbContext(localDb);
+                var loanItem = new LoanItem { Name = "Lamp" };
+                AddItem(dbContext, loanItem);
+                var itemRepository = CreateItemRepository(dbContext);
+                //---------------Assert Precondition----------------
+                //---------------Execute Test ----------------------
+                itemRepository.Delete(777);
+                //---------------Test Result -----------------------
+                var loanItems = dbContext.Items;
+                CollectionAssert.AreEquivalent(new [] {loanItem}, loanItems);
+            }
+        }
+
+        [Test]
+        public void Delete_GivenMatchingItemId_ShouldNotDeleteLoanItems()
+        {
+            //---------------Set up test pack-------------------
+            using (var localDb = new TempDBLocalDb())
+            {
+                var dbContext = CreateDbContext(localDb);
+                var loanItem = new LoanItem { Name = "Lamp" };
+                AddItem(dbContext, loanItem);
+                var id = dbContext.Items.Single(i => i.Name == "Lamp").Id;
+                var itemRepository = CreateItemRepository(dbContext);
+                //---------------Assert Precondition----------------
+                //---------------Execute Test ----------------------
+                itemRepository.Delete(id);
+                //---------------Test Result -----------------------
+                var loanItems = dbContext.Items;
+                CollectionAssert.IsEmpty(loanItems);
+            }
+        }
+        
+        private static void AddItem(CatalogueDbContext dbContext, LoanItem loanItem)
+        {
+            dbContext.Items.Add(loanItem);
+            dbContext.SaveChanges();
+        }
+
+        private static CatalogueDbContext CreateDbContext(TempDBLocalDb localDb)
+        {
+            return new CatalogueDbContext(localDb.CreateConnection());
+        }
+
 
         //[Test]
         //public void GetItems_GivenNoItemsInCatalogue_ShouldReturnEmptyList()

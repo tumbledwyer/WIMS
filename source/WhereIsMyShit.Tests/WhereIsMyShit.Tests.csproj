@@ -123,6 +123,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CatalogueDbContextPersistenceTestFixtureBase.cs" />
+    <Compile Include="TestCatalogueDbContext.cs" />
     <Compile Include="TestHomeController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestItemRepository.cs" />
@@ -137,9 +138,6 @@
       <Project>{7B50A189-514C-44AF-B534-E02FAB8534FC}</Project>
       <Name>WhereIsMyShit</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="GenericBuilderTests-ExampleUsage.cs.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

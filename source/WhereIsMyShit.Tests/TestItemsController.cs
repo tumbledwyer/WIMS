@@ -133,11 +133,11 @@ namespace WhereIsMyShit.Tests
             //---------------Set up test pack-------------------
             var repository = CreateConcreteRepository();
             var itemsController = CreateSut(repository);
-            var item = CreateItem("Bob");
+            var item = CreateItem(21, "Bob");
             repository.Add(item);
             //---------------Assert Precondition----------------
             //---------------Execute Test ----------------------
-            itemsController.Delete(item.Name);
+            itemsController.Delete(item.Id);
             //---------------Test Result -----------------------
             var items = repository.GetItems();
             CollectionAssert.DoesNotContain(items, item);
@@ -149,11 +149,11 @@ namespace WhereIsMyShit.Tests
             //---------------Set up test pack-------------------
             var repository = CreateConcreteRepository();
             var itemsController = CreateSut(repository);
-            var item = CreateItem("Dvd");
+            var item = CreateItem(10, "Dvd");
             repository.Add(item);
             //---------------Assert Precondition----------------
             //---------------Execute Test ----------------------
-            var actionResult = itemsController.Delete(item.Name) as RedirectToRouteResult;
+            var actionResult = itemsController.Delete(item.Id) as RedirectToRouteResult;
             //---------------Test Result -----------------------
             Assert.AreEqual("Index", actionResult.RouteValues["action"]);
         }
@@ -165,11 +165,11 @@ namespace WhereIsMyShit.Tests
             var repository = CreateConcreteRepository();
             var itemsController = CreateSut(repository);
             var item = CreateItem("Dvd");
-            var item2 = CreateItem("Box");
+            var item2 = CreateItem(33, "Box");
             repository.Add(item);
             //---------------Assert Precondition----------------
             //---------------Execute Test ----------------------
-            var actionResult = itemsController.Delete(item2.Name) as RedirectToRouteResult;
+            var actionResult = itemsController.Delete(item2.Id) as RedirectToRouteResult;
             var itemModels = repository.GetItems();
             //---------------Test Result -----------------------
             CollectionAssert.AreEquivalent(new[] {item}, itemModels);
@@ -182,14 +182,14 @@ namespace WhereIsMyShit.Tests
             //---------------Set up test pack-------------------
             var repository = Substitute.For<IItemRepository>();
             var itemsController = CreateSut(repository);
-            var item = CreateItem("Chair");
+            var item = CreateItem(12, "Chair");
             repository.GetItems().Returns(new List<LoanItem> {item});
             var item2 = CreateItem();
             //---------------Assert Precondition----------------
             //---------------Execute Test ----------------------
-            itemsController.Delete(item2.Name);
+            itemsController.Delete(item2.Id);
             //---------------Test Result -----------------------
-            repository.DidNotReceive().Delete(item2.Name);
+            repository.DidNotReceive().Delete(item2.Id);
         }
 
 
@@ -207,6 +207,11 @@ namespace WhereIsMyShit.Tests
         private static LoanItem CreateItem(string name = null)
         {
             return new LoanItem {Name = name};
+        }
+
+        private LoanItem CreateItem(int id, string name)
+        {
+            return new LoanItem {Id = id, Name = name};
         }
     }
 }

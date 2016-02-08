@@ -18,29 +18,30 @@ namespace WhereIsMyShit.App_Start
         public List<LoanItem> GetItems()
         {
             return _catalogue.Items.ToList();
-            //return new List<LoanItem>();
         }
 
         public void Add(LoanItem loanItem)
         {
-            //if (item == null) return;
-            //_catalogue.Items.Add(item);
-            //_catalogue.SaveChanges();
+            _catalogue.Items.Add(loanItem);
+            _catalogue.SaveChanges();
         }
 
-        public void Delete(string itemName)
+        public void Delete(int id)
         {
-            //var itemWithName = FindByName(itemName);
-            //if (itemWithName != null)
-            //{
-            //    _itemModels.Remove(itemWithName);
-            //}
+            var loanItem = FindById(id);
+            if (loanItem == null) return;
+            _catalogue.Items.Remove(loanItem);
+            _catalogue.SaveChanges();
         }
 
         public LoanItem FindByName(string name)
         {
-            //return _catalogue.Items.FirstOrDefault(s => s.Name == name);
-            return null;
+            return _catalogue.Items.SingleOrDefault(s => s.Name == name);
+        }
+
+        public LoanItem FindById(int id)
+        {
+            return _catalogue.Items.SingleOrDefault(i => i.Id == id);
         }
     }
 }

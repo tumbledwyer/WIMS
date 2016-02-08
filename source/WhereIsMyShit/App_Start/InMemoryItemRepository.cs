@@ -17,9 +17,9 @@ namespace WhereIsMyShit.App_Start
             _itemModels.Add(loanItem);
         }
 
-        public void Delete(string itemName)
+        public void Delete(int id)
         {
-            var itemWithName = FindByName(itemName);
+            var itemWithName = FindById(id);
             if (itemWithName != null)
             {
                 _itemModels.Remove(itemWithName);
@@ -29,6 +29,11 @@ namespace WhereIsMyShit.App_Start
         public LoanItem FindByName(string name)
         {
             return _itemModels.Find(s => s.Name == name);
+        }
+
+        public LoanItem FindById(int id)
+        {
+            return _itemModels.Find(i => i.Id == id);
         }
     }
 }

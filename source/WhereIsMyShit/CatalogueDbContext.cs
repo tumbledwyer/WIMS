@@ -26,9 +26,10 @@ namespace WhereIsMyShit
         }
 
         public virtual IDbSet<LoanItem> Items { get; set; }
-        public void SaveChanges()
+
+        public new void SaveChanges()
         {
-            
+            base.SaveChanges();
         }
     }
 }

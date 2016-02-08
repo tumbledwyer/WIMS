@@ -7,7 +7,8 @@ namespace WhereIsMyShit.App_Start
     {
         List<LoanItem> GetItems();
         void Add(LoanItem loanItem);
-        void Delete(string itemName);
+        void Delete(int id);
         LoanItem FindByName(string name);
+        LoanItem FindById(int itemId);
     }
 }
