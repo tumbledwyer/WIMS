@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Common;
+﻿using System.Data.Common;
 using System.Data.Entity;
-using System.Linq;
-using System.Web;
 using WhereIsMyShit.Models;
 
-namespace WhereIsMyShit
+namespace WhereIsMyShit.DbContexts
 {
     public interface ICatalogueDbContext
     {

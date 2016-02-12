@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Linq;
 using System.Reflection;
 using System.Web;
@@ -8,8 +9,9 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
-using WhereIsMyShit.App_Start;
-using WhereIsMyShit.Controllers;
+using WhereIsMyShit.DbContexts;
+using WhereIsMyShit.DbMigrations;
+using WhereIsMyShit.Repositories;
 
 namespace WhereIsMyShit
 {
@@ -23,12 +25,17 @@ namespace WhereIsMyShit
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             var windsorBootstrapper = new WindsorBootstrapper();
-            var windsorContainer = Init();
+            var windsorContainer = InitContainer();
             ControllerBuilder.Current.SetControllerFactory(new ControllerFactory(windsorContainer));
+
+
+            var connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            var migrationsRunner = new MigrationsRunner(connectionString);
+            migrationsRunner.MigrateToLatest();
         }
 
         //TODO refactor and test
-        private IWindsorContainer Init()
+        private IWindsorContainer InitContainer()
         {
             var container = new WindsorContainer();
             container.Register(
@@ -58,7 +65,8 @@ namespace WhereIsMyShit
         {
             _defaultWebRequestLifestyle = defaultWebRequestLifestyle;
         }
-        private IWindsorContainer Init()
+
+        public IWindsorContainer Init()
         {
             var container = new WindsorContainer();
             container.Register(CreateContextRegistration());

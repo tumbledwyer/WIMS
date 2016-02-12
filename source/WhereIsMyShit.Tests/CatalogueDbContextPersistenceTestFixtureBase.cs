@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PeanutButter.FluentMigrator;
-using PeanutButter.TestUtils.Entity;
+﻿using PeanutButter.TestUtils.Entity;
 using PeanutButter.Utils.Entity;
+using WhereIsMyShit.DbContexts;
 using WhereIsMyShit.DbMigrations;
 
 namespace WhereIsMyShit.Tests

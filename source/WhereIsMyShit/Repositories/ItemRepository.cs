@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using WhereIsMyShit.DbContexts;
 using WhereIsMyShit.Models;
 
-namespace WhereIsMyShit.App_Start
+namespace WhereIsMyShit.Repositories
 {
     public class ItemRepository : IItemRepository
     {

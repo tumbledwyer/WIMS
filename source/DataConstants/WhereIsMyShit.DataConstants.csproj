@@ -7,8 +7,8 @@
     <ProjectGuid>{3D48AE47-99BB-45B4-9633-03BE17A430FE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DataConstants</RootNamespace>
-    <AssemblyName>DataConstants</AssemblyName>
+    <RootNamespace>WhereIsMyShit.DataConstants</RootNamespace>
+    <AssemblyName>WhereIsMyShit.DataConstants</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

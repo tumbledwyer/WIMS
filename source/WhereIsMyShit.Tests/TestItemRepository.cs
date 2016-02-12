@@ -3,8 +3,9 @@ using System.Linq;
 using NSubstitute;
 using NUnit.Framework;
 using PeanutButter.TempDb.LocalDb;
-using WhereIsMyShit.App_Start;
+using WhereIsMyShit.DbContexts;
 using WhereIsMyShit.Models;
+using WhereIsMyShit.Repositories;
 
 namespace WhereIsMyShit.Tests
 {

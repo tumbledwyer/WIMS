@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using WhereIsMyShit.Models;
 
-namespace WhereIsMyShit.App_Start
+namespace WhereIsMyShit.Repositories
 {
     public class InMemoryItemRepository : IItemRepository
     {

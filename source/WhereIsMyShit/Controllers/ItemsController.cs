@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using WhereIsMyShit.App_Start;
+﻿using System.Web.Mvc;
 using WhereIsMyShit.Models;
+using WhereIsMyShit.Repositories;
 
 namespace WhereIsMyShit.Controllers
 {

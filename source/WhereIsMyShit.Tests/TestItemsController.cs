@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Web.Mvc;
 using NSubstitute;
 using NUnit.Framework;
-using WhereIsMyShit.App_Start;
 using WhereIsMyShit.Controllers;
 using WhereIsMyShit.Models;
+using WhereIsMyShit.Repositories;
 
 namespace WhereIsMyShit.Tests
 {
