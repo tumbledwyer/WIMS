@@ -134,6 +134,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\WhereIsMyShit.DbMigrations\WhereIsMyShit.DbMigrations.csproj">
+      <Project>{BC441C7A-A532-454A-948B-F7900A22E2F2}</Project>
+      <Name>WhereIsMyShit.DbMigrations</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WhereIsMyShit\WhereIsMyShit.csproj">
       <Project>{7B50A189-514C-44AF-B534-E02FAB8534FC}</Project>
       <Name>WhereIsMyShit</Name>

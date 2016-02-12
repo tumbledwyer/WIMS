@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PeanutButter.FluentMigrator;
 using PeanutButter.TestUtils.Entity;
 using PeanutButter.Utils.Entity;
+using WhereIsMyShit.DbMigrations;
 
 namespace WhereIsMyShit.Tests
 {
@@ -12,9 +14,8 @@ namespace WhereIsMyShit.Tests
     {
         public CatalogueDbContextPersistenceTestFixtureBase()
         {
-            //Configure(false, connectionString => new CompositeDBMigrator(connectionString, true));
-            
-            //DisableDatabaseRegeneration();
+            Configure(false, connectionString => new MigrationsRunner(connectionString));
+            DisableDatabaseRegeneration();
             RunBeforeFirstGettingContext(Clear);
         }
 
@@ -24,24 +25,4 @@ namespace WhereIsMyShit.Tests
             ctx.SaveChangesWithErrorReporting();
         }
     }
-
-
-    //public abstract class SomeContextPersistenceTestFixtureBase : EntityPersistenceTestFixtureBase<SomeContext>
-    //{
-    //    public SomeContextPersistenceTestFixtureBase()
-    //    {
-    //        Configure(false, connectionString => new CompositeDBMigrator(connectionString, true));
-    //        DisableDatabaseRegeneration();
-    //        RunBeforeFirstGettingContext(Clear);
-    //    }
-
-    //    private void Clear(SomeContext ctx)
-    //    {
-    //        ctx.SomeChildEntities.Clear();
-    //        ctx.SomeEntities.Clear();
-    //        ctx.SaveChangesWithErrorReporting();
-    //    }
-    //}
-
-
 }

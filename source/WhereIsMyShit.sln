@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhereIsMyShit", "WhereIsMyS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhereIsMyShit.Tests", "WhereIsMyShit.Tests\WhereIsMyShit.Tests.csproj", "{79557B72-A5D7-46C2-A307-A3F6BB863C04}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataConstants", "DataConstants\DataConstants.csproj", "{3D48AE47-99BB-45B4-9633-03BE17A430FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhereIsMyShit.DbMigrations", "WhereIsMyShit.DbMigrations\WhereIsMyShit.DbMigrations.csproj", "{BC441C7A-A532-454A-948B-F7900A22E2F2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{79557B72-A5D7-46C2-A307-A3F6BB863C04}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{79557B72-A5D7-46C2-A307-A3F6BB863C04}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{79557B72-A5D7-46C2-A307-A3F6BB863C04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D48AE47-99BB-45B4-9633-03BE17A430FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D48AE47-99BB-45B4-9633-03BE17A430FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D48AE47-99BB-45B4-9633-03BE17A430FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D48AE47-99BB-45B4-9633-03BE17A430FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC441C7A-A532-454A-948B-F7900A22E2F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC441C7A-A532-454A-948B-F7900A22E2F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC441C7A-A532-454A-948B-F7900A22E2F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC441C7A-A532-454A-948B-F7900A22E2F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
