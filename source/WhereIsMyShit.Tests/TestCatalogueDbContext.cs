@@ -1,20 +1,23 @@
 ﻿using System.Linq;
 using NUnit.Framework;
 using PeanutButter.TempDb.LocalDb;
+using PeanutButter.TestUtils.Entity;
+using PeanutButter.Utils.Entity;
 using WhereIsMyShit.DbContexts;
+using WhereIsMyShit.DbMigrations;
 using WhereIsMyShit.Models;
 
 namespace WhereIsMyShit.Tests
 {
     [TestFixture]
-    public class TestCatalogueDbContext
+    public class TestCatalogueDbContext: EntityTestFixtureBase
     {
         [Test]
         public void SaveChanges_GivenNewItem_ShouldPersistChanges()
         {
             //---------------Set up test pack-------------------
-            using (var localDb = new TempDBLocalDb())
-            using (var dbContext = new CatalogueDbContext(localDb.CreateConnection()))
+
+            using (var dbContext = GetContext())
             {
                 var loanItem = new LoanItem { Name = "Strat" };
                 dbContext.LoanItems.Add(loanItem);

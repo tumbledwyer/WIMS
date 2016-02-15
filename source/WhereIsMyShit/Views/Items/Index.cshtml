@@ -9,18 +9,27 @@
 
 <h2>List of my stuff</h2>
 
-@Html.ActionLink("Add", "Add", "Items")
+<div>
+    <a href="@Url.Action("Add", "Items")" class="glyphicon glyphicon-plus-sign" role="button"></a>
+</div>
 
-<table>
+<div>
+    <div class="row">
+        <h3 class="col-md-5">Item Name</h3>
+        <h3 class="col-md-5">Borrowed By</h3>
+    </div>
     @foreach (var model in Model)
     {
-        <tr>
-            <td>@Html.Label(model.Name)</td>
-            <td>@Html.ActionLink("kill", "Delete", new { itemId = model.Id})</td>
-        </tr>
+        <div class="row">
+            <div class="col-md-5">@Html.Label(model.Name)</div>
+            <div class="col-md-5">Placeholder</div>
+            <div class="col-md-2">
+                <a href="@Url.Action("Delete", new {itemId = model.Id})" class="glyphicon glyphicon-trash" role="button"></a>
+            </div>
+        </div>
     }
-    
-</table>
+
+</div>
 
 
 

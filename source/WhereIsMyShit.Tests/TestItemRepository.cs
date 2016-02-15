@@ -15,35 +15,33 @@ using WhereIsMyShit.Repositories;
 
 namespace WhereIsMyShit.Tests
 {
-    [TestFixture]
-    public class TestItemRepository : EntityPersistenceTestFixtureBase<CatalogueDbContext>
-    {
-        public class DbMigratorForTesting : IDBMigrationsRunner
-        {
-            public void MigrateToLatest()
-            {
-            }
-        }
 
+    public abstract class EntityTestFixtureBase: EntityPersistenceTestFixtureBase<CatalogueDbContext>
+    {
         [OneTimeSetUp]
         public void OneTimeBru()
         {
-            Configure(false, cs => new DbMigratorForTesting());
+            Configure(false, cs => new MigrationsRunner(cs));
             DisableDatabaseRegeneration();
             RunBeforeFirstGettingContext(Clear);
         }
 
-        private void Clear(CatalogueDbContext ctx)
+        protected void Clear(CatalogueDbContext ctx)
         {
             ctx.LoanItems.Clear();
             ctx.SaveChangesWithErrorReporting();
         }
 
+        
+    }
+    [TestFixture]
+    public class TestItemRepository : EntityTestFixtureBase
+    {
         [Test]
         public void Context_ShouldNotDoEntityMigrations()
         {
             //---------------Set up test pack-------------------
-            using (var ctx = new CatalogueDbContext(_tempDb.CreateConnection()))
+            using (var ctx = GetContext())
             {
                 //---------------Assert Precondition----------------
                 ctx.Database.Log = Console.WriteLine;
@@ -253,8 +251,11 @@ namespace WhereIsMyShit.Tests
             //---------------Set up test pack-------------------
             //---------------Assert Precondition----------------
             //---------------Execute Test ----------------------
+            using (var ctx = new CatalogueDbContext(_tempDb.CreateConnection()))
+                Clear(ctx);
             EntityPersistenceTester.CreateFor<LoanItem>()
                 .WithContext<CatalogueDbContext>()
+                .WithSharedDatabase(_tempDb)
                 .WithEntityFrameworkLogger(Console.WriteLine)
                 .WithDbMigrator(conn => new MigrationsRunner(conn))
                 .ShouldPersistAndRecall();
