@@ -123,11 +123,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CatalogueDbContextPersistenceTestFixtureBase.cs" />
-    <Compile Include="TestCatalogueDbContext.cs" />
-    <Compile Include="TestHomeController.cs" />
+    <Compile Include="Controllers\TestBorrowersController.cs" />
+    <Compile Include="DbContexts\TestCatalogueDbContext.cs" />
+    <Compile Include="Controllers\TestHomeController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestItemRepository.cs" />
-    <Compile Include="TestItemsController.cs" />
+    <Compile Include="Repositories\TestItemRepository.cs" />
+    <Compile Include="Controllers\TestItemsController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

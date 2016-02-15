@@ -31,5 +31,7 @@ namespace WhereIsMyShit.DbContexts
         {
             base.SaveChanges();
         }
+
+        public System.Data.Entity.DbSet<WhereIsMyShit.Models.Borrower> Borrowers { get; set; }
     }
 }
