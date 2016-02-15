@@ -10,7 +10,7 @@ using WhereIsMyShit.Models;
 namespace WhereIsMyShit.Tests
 {
     [TestFixture]
-    public class TestCatalogueDbContext: EntityTestFixtureBase
+    public class TestCatalogueDbContext: CatalogueDbContextPersistenceTestFixtureBase
     {
         [Test]
         public void SaveChanges_GivenNewItem_ShouldPersistChanges()

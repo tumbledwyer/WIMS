@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Linq;
-using System.Text;
 using NSubstitute;
 using NUnit.Framework;
-using PeanutButter.FluentMigrator;
 using PeanutButter.RandomGenerators;
-using PeanutButter.TempDb.LocalDb;
 using PeanutButter.TestUtils.Entity;
-using PeanutButter.Utils.Entity;
 using WhereIsMyShit.DbContexts;
 using WhereIsMyShit.DbMigrations;
 using WhereIsMyShit.Models;
@@ -15,27 +11,8 @@ using WhereIsMyShit.Repositories;
 
 namespace WhereIsMyShit.Tests
 {
-
-    public abstract class EntityTestFixtureBase: EntityPersistenceTestFixtureBase<CatalogueDbContext>
-    {
-        [OneTimeSetUp]
-        public void OneTimeBru()
-        {
-            Configure(false, cs => new MigrationsRunner(cs));
-            DisableDatabaseRegeneration();
-            RunBeforeFirstGettingContext(Clear);
-        }
-
-        protected void Clear(CatalogueDbContext ctx)
-        {
-            ctx.LoanItems.Clear();
-            ctx.SaveChangesWithErrorReporting();
-        }
-
-        
-    }
     [TestFixture]
-    public class TestItemRepository : EntityTestFixtureBase
+    public class TestItemRepository : CatalogueDbContextPersistenceTestFixtureBase
     {
         [Test]
         public void Context_ShouldNotDoEntityMigrations()
@@ -261,11 +238,6 @@ namespace WhereIsMyShit.Tests
                 .ShouldPersistAndRecall();
             //---------------Test Result -----------------------
         }
-
-       
-
-
-
         
         private static void AddItem(CatalogueDbContext dbContext, LoanItem loanItem)
         {

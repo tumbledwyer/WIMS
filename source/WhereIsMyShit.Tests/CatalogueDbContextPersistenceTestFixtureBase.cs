@@ -14,7 +14,7 @@ namespace WhereIsMyShit.Tests
             RunBeforeFirstGettingContext(Clear);
         }
 
-        private void Clear(CatalogueDbContext ctx)
+        public void Clear(CatalogueDbContext ctx)
         {
             ctx.LoanItems.Clear();
             ctx.SaveChangesWithErrorReporting();
