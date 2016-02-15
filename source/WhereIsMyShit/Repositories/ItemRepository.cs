@@ -18,12 +18,12 @@ namespace WhereIsMyShit.Repositories
 
         public List<LoanItem> GetItems()
         {
-            return _catalogue.Items.ToList();
+            return _catalogue.LoanItems.ToList();
         }
 
         public void Add(LoanItem loanItem)
         {
-            _catalogue.Items.Add(loanItem);
+            _catalogue.LoanItems.Add(loanItem);
             _catalogue.SaveChanges();
         }
 
@@ -31,18 +31,18 @@ namespace WhereIsMyShit.Repositories
         {
             var loanItem = FindById(id);
             if (loanItem == null) return;
-            _catalogue.Items.Remove(loanItem);
+            _catalogue.LoanItems.Remove(loanItem);
             _catalogue.SaveChanges();
         }
 
         public LoanItem FindByName(string name)
         {
-            return _catalogue.Items.SingleOrDefault(s => s.Name == name);
+            return _catalogue.LoanItems.SingleOrDefault(s => s.Name == name);
         }
 
         public LoanItem FindById(int id)
         {
-            return _catalogue.Items.SingleOrDefault(i => i.Id == id);
+            return _catalogue.LoanItems.SingleOrDefault(i => i.Id == id);
         }
     }
 }

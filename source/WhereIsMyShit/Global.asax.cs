@@ -24,11 +24,10 @@ namespace WhereIsMyShit
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            var windsorBootstrapper = new WindsorBootstrapper();
+            //var windsorBootstrapper = new WindsorBootstrapper();
             var windsorContainer = InitContainer();
             ControllerBuilder.Current.SetControllerFactory(new ControllerFactory(windsorContainer));
-
-
+            
             var connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
             var migrationsRunner = new MigrationsRunner(connectionString);
             migrationsRunner.MigrateToLatest();

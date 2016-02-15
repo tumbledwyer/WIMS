@@ -14,17 +14,17 @@ namespace WhereIsMyShit.Tests
         {
             //---------------Set up test pack-------------------
             using (var localDb = new TempDBLocalDb())
+            using (var dbContext = new CatalogueDbContext(localDb.CreateConnection()))
             {
-                var dbContext = new CatalogueDbContext(localDb.CreateConnection());
                 var loanItem = new LoanItem { Name = "Strat" };
-                dbContext.Items.Add(loanItem);
+                dbContext.LoanItems.Add(loanItem);
                 //---------------Assert Precondition----------------
-                var itemBeforeSave = dbContext.Items.SingleOrDefault(i => i.Name == "Strat");
+                var itemBeforeSave = dbContext.LoanItems.SingleOrDefault(i => i.Name == "Strat");
                 Assert.IsNull(itemBeforeSave);
                 //---------------Execute Test ----------------------
                 dbContext.SaveChanges();
                 //---------------Test Result -----------------------
-                var addedItem = dbContext.Items.Single(i => i.Name == "Strat");
+                var addedItem = dbContext.LoanItems.Single(i => i.Name == "Strat");
                 Assert.AreEqual(loanItem, addedItem);
             }
         }

@@ -16,7 +16,7 @@ namespace WhereIsMyShit.Tests
 
         private void Clear(CatalogueDbContext ctx)
         {
-            ctx.Items.Clear();
+            ctx.LoanItems.Clear();
             ctx.SaveChangesWithErrorReporting();
         }
     }

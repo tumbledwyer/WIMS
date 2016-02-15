@@ -8,7 +8,7 @@ using System.Web;
 
 namespace WhereIsMyShit.Models
 {
-    [Table("Items")]
+    //[Table("LoanItems")]
     public class LoanItem
     {
         [Key]

@@ -4,7 +4,7 @@
     {
         public class LoanItem
         {
-            public const string NAME = "LoanItem";
+            public const string NAME = "LoanItems";
 
             public class Columns
             {

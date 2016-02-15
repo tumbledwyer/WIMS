@@ -6,12 +6,16 @@ namespace WhereIsMyShit.DbContexts
 {
     public interface ICatalogueDbContext
     {
-        IDbSet<LoanItem> Items { get; set; }
+        IDbSet<LoanItem> LoanItems { get; set; }
         void SaveChanges();
     }
 
     public class CatalogueDbContext : DbContext, ICatalogueDbContext
     {
+        static CatalogueDbContext()
+        {
+            Database.SetInitializer<CatalogueDbContext>(null);
+        }
         public CatalogueDbContext(DbConnection connection ) : base(connection, false)
         {
             
@@ -21,7 +25,7 @@ namespace WhereIsMyShit.DbContexts
             
         }
 
-        public virtual IDbSet<LoanItem> Items { get; set; }
+        public virtual IDbSet<LoanItem> LoanItems { get; set; }
 
         public new void SaveChanges()
         {

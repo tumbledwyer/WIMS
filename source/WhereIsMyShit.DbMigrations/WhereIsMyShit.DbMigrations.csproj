@@ -38,7 +38,7 @@
       <HintPath>..\packages\FluentMigrator.Tools.1.6.1\tools\AnyCPU\40\FluentMigrator.Runner.dll</HintPath>
     </Reference>
     <Reference Include="PeanutButter.FluentMigrator, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\PeanutButter.FluentMigrator.1.1.29\lib\net40\PeanutButter.FluentMigrator.dll</HintPath>
+      <HintPath>..\packages\PeanutButter.FluentMigrator.1.1.33\lib\net40\PeanutButter.FluentMigrator.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -52,10 +52,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MigrationsRunner.cs" />
+    <Compile Include="Migrations\Migration_201602121647_CreateLoanItemTable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataConstants\WhereIsMyShit.DataConstants.csproj">
+      <Project>{3d48ae47-99bb-45b4-9633-03be17a430fe}</Project>
+      <Name>WhereIsMyShit.DataConstants</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
