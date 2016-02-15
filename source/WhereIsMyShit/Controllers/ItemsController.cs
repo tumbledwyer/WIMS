@@ -20,14 +20,14 @@ namespace WhereIsMyShit.Controllers
         }
 
         [HttpPost]
-        public ActionResult Add(LoanItem loanItem)
+        public ActionResult Create(LoanItem loanItem)
         {
-            if (!ModelState.IsValid) return View("Add", loanItem);
+            if (!ModelState.IsValid) return View("Create", loanItem);
             _itemRepository.Add(loanItem);
             return RedirectToAction("Index");
         }
 
-        public ActionResult Add()
+        public ActionResult Create()
         {
             return View();
         }

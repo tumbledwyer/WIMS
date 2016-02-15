@@ -5,16 +5,16 @@ using WhereIsMyShit.DbMigrations;
 
 namespace WhereIsMyShit.Tests
 {
-    public abstract class CatalogueDbContextPersistenceTestFixtureBase : EntityPersistenceTestFixtureBase<CatalogueDbContext>
+    public abstract class WimsDbContextPersistenceTestFixtureBase : EntityPersistenceTestFixtureBase<WimsDbContext>
     {
-        public CatalogueDbContextPersistenceTestFixtureBase()
+        public WimsDbContextPersistenceTestFixtureBase()
         {
             Configure(false, connectionString => new MigrationsRunner(connectionString));
             DisableDatabaseRegeneration();
             RunBeforeFirstGettingContext(Clear);
         }
 
-        public void Clear(CatalogueDbContext ctx)
+        public void Clear(WimsDbContext ctx)
         {
             ctx.LoanItems.Clear();
             ctx.SaveChangesWithErrorReporting();

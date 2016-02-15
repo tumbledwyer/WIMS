@@ -122,9 +122,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CatalogueDbContextPersistenceTestFixtureBase.cs" />
+    <Compile Include="Repositories\TestBorrowerRepository.cs" />
+    <Compile Include="EntityBuilders.cs" />
+    <Compile Include="WimsDbContextPersistenceTestFixtureBase.cs" />
     <Compile Include="Controllers\TestBorrowersController.cs" />
-    <Compile Include="DbContexts\TestCatalogueDbContext.cs" />
+    <Compile Include="DbContexts\TestWimsDbContext.cs" />
     <Compile Include="Controllers\TestHomeController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\TestItemRepository.cs" />

@@ -3,15 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WhereIsMyShit.Models;
+using WhereIsMyShit.Repositories;
 
 namespace WhereIsMyShit.Controllers
 {
     public class BorrowersController : Controller
     {
+        private readonly IBorrowerRepository _repository;
+
+        public BorrowersController(IBorrowerRepository repository)
+        {
+            _repository = repository;
+        }
+
         // GET: Borrower
         public ActionResult Index()
         {
-            return View("Add");
+            return View("Create");
         }
 
         // GET: Borrower/Details/5
@@ -28,7 +37,7 @@ namespace WhereIsMyShit.Controllers
 
         // POST: Borrower/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Borrower borrower)
         {
             try
             {

@@ -196,13 +196,14 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="Controllers\BorrowersController.cs" />
     <Compile Include="Models\Borrower.cs" />
+    <Compile Include="Repositories\BorrowerRepository.cs" />
     <Compile Include="Repositories\IItemRepository.cs" />
     <Compile Include="Repositories\InMemoryItemRepository.cs" />
     <Compile Include="Repositories\ItemRepository.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="DbContexts\CatalogueDbContext.cs" />
+    <Compile Include="DbContexts\WimsDbContext.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
@@ -273,8 +274,8 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Items\Index.cshtml" />
-    <Content Include="Views\Items\Add.cshtml" />
-    <Content Include="Views\Borrowers\Add.cshtml" />
+    <Content Include="Views\Items\Create.cshtml" />
+    <Content Include="Views\Borrowers\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

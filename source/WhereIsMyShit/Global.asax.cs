@@ -38,9 +38,9 @@ namespace WhereIsMyShit
         {
             var container = new WindsorContainer();
             container.Register(
-                Component.For<ICatalogueDbContext>().ImplementedBy<CatalogueDbContext>().LifestylePerWebRequest());
+                Component.For<IWimsDbContext>().ImplementedBy<WimsDbContext>().LifestylePerWebRequest());
             container.Register(
-                Component.For<IItemRepository>().UsingFactoryMethod(() => new ItemRepository(new CatalogueDbContext())));
+                Component.For<IItemRepository>().UsingFactoryMethod(() => new ItemRepository(new WimsDbContext())));
             var contollers =
                 Assembly.GetExecutingAssembly().GetTypes().Where(x => x.BaseType == typeof (Controller)).ToList();
             foreach (var controller in contollers)
@@ -80,9 +80,9 @@ namespace WhereIsMyShit
             return container;
         }
 
-        private  ComponentRegistration<ICatalogueDbContext> CreateContextRegistration()
+        private  ComponentRegistration<IWimsDbContext> CreateContextRegistration()
         {
-            var registration = Component.For<ICatalogueDbContext>().ImplementedBy<CatalogueDbContext>();
+            var registration = Component.For<IWimsDbContext>().ImplementedBy<WimsDbContext>();
             return _defaultWebRequestLifestyle == Lifestyles.PerWebRequest
                 ? registration.LifestylePerWebRequest()
                 : registration.LifestyleTransient();

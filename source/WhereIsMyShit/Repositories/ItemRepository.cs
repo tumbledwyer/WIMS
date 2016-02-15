@@ -8,41 +8,41 @@ namespace WhereIsMyShit.Repositories
 {
     public class ItemRepository : IItemRepository
     {
-        private readonly ICatalogueDbContext _catalogue;
+        private readonly IWimsDbContext _dbContext;
 
-        public ItemRepository(ICatalogueDbContext catalogue)
+        public ItemRepository(IWimsDbContext dbContext)
         {
-            if (catalogue == null) throw new ArgumentNullException(nameof(catalogue));
-            _catalogue = catalogue;
+            if (dbContext == null) throw new ArgumentNullException(nameof(dbContext));
+            _dbContext = dbContext;
         }
 
         public List<LoanItem> GetItems()
         {
-            return _catalogue.LoanItems.ToList();
+            return _dbContext.LoanItems.ToList();
         }
 
         public void Add(LoanItem loanItem)
         {
-            _catalogue.LoanItems.Add(loanItem);
-            _catalogue.SaveChanges();
+            _dbContext.LoanItems.Add(loanItem);
+            _dbContext.SaveChanges();
         }
 
         public void Delete(int id)
         {
             var loanItem = FindById(id);
             if (loanItem == null) return;
-            _catalogue.LoanItems.Remove(loanItem);
-            _catalogue.SaveChanges();
+            _dbContext.LoanItems.Remove(loanItem);
+            _dbContext.SaveChanges();
         }
 
         public LoanItem FindByName(string name)
         {
-            return _catalogue.LoanItems.SingleOrDefault(s => s.Name == name);
+            return _dbContext.LoanItems.SingleOrDefault(s => s.Name == name);
         }
 
         public LoanItem FindById(int id)
         {
-            return _catalogue.LoanItems.SingleOrDefault(i => i.Id == id);
+            return _dbContext.LoanItems.SingleOrDefault(i => i.Id == id);
         }
     }
 }

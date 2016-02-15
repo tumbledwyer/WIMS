@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="MigrationsRunner.cs" />
     <Compile Include="Migrations\Migration_201602121647_CreateLoanItemTable.cs" />
+    <Compile Include="Migrations\Migration_2016021511800_CreateBorrowerTable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

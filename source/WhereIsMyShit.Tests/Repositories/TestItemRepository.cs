@@ -12,7 +12,7 @@ using WhereIsMyShit.Repositories;
 namespace WhereIsMyShit.Tests
 {
     [TestFixture]
-    public class TestItemRepository : CatalogueDbContextPersistenceTestFixtureBase
+    public class TestItemRepository : WimsDbContextPersistenceTestFixtureBase
     {
         [Test]
         public void Context_ShouldNotDoEntityMigrations()
@@ -53,14 +53,14 @@ namespace WhereIsMyShit.Tests
             //---------------Execute Test ----------------------
             var exception = Assert.Throws<ArgumentNullException>(() => new ItemRepository(null));
             //---------------Test Result -----------------------
-            Assert.AreEqual("catalogue", exception.ParamName);
+            Assert.AreEqual("dbContext", exception.ParamName);
         }
 
         [Test]
         public void Construct_GivenDbContext_ShouldNotThrowException()
         {
             //---------------Set up test pack-------------------
-            var catalogue = Substitute.For<ICatalogueDbContext>();
+            var catalogue = Substitute.For<IWimsDbContext>();
             //---------------Assert Precondition----------------
             //---------------Execute Test ----------------------
             Assert.DoesNotThrow(() => new ItemRepository(catalogue));
@@ -228,10 +228,10 @@ namespace WhereIsMyShit.Tests
             //---------------Set up test pack-------------------
             //---------------Assert Precondition----------------
             //---------------Execute Test ----------------------
-            using (var ctx = new CatalogueDbContext(_tempDb.CreateConnection()))
+            using (var ctx = new WimsDbContext(_tempDb.CreateConnection()))
                 Clear(ctx);
             EntityPersistenceTester.CreateFor<LoanItem>()
-                .WithContext<CatalogueDbContext>()
+                .WithContext<WimsDbContext>()
                 .WithSharedDatabase(_tempDb)
                 .WithEntityFrameworkLogger(Console.WriteLine)
                 .WithDbMigrator(conn => new MigrationsRunner(conn))
@@ -239,15 +239,15 @@ namespace WhereIsMyShit.Tests
             //---------------Test Result -----------------------
         }
         
-        private static void AddItem(CatalogueDbContext dbContext, LoanItem loanItem)
+        private static void AddItem(WimsDbContext dbContext, LoanItem loanItem)
         {
             dbContext.LoanItems.Add(loanItem);
             dbContext.SaveChanges();
         }
         
-        private static ItemRepository CreateItemRepository(ICatalogueDbContext catalogue)
+        private static ItemRepository CreateItemRepository(IWimsDbContext wims)
         {
-            return new ItemRepository(catalogue);
+            return new ItemRepository(wims);
         }
 
         public class LoanItemBuilder : GenericBuilder<LoanItemBuilder, LoanItem>

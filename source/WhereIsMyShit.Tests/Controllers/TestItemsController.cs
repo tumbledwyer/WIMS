@@ -24,13 +24,13 @@ namespace WhereIsMyShit.Tests
         }
 
         [Test]
-        public void Add_ShouldReturnView()
+        public void Create_ShouldReturnView()
         {
             //---------------Set up test pack-------------------
             var itemsController = CreateSut();
             //---------------Assert Precondition----------------
             //---------------Execute Test ----------------------
-            var result = itemsController.Add();
+            var result = itemsController.Create();
             //---------------Test Result -----------------------
             Assert.AreEqual(typeof(ViewResult), result.GetType());
         }
@@ -54,7 +54,7 @@ namespace WhereIsMyShit.Tests
         }
 
         [Test]
-        public void Add_GivenValidItem_ShouldAddItemToCatalogue()
+        public void Create_GivenValidItem_ShouldAddItemToCatalogue()
         {
             //---------------Set up test pack-------------------
             var itemRepository = CreateConcreteRepository();
@@ -64,14 +64,14 @@ namespace WhereIsMyShit.Tests
             //---------------Assert Precondition----------------
             CollectionAssert.DoesNotContain(itemModels, item);
             //---------------Execute Test ----------------------
-            itemsController.Add(item);
+            itemsController.Create(item);
             //---------------Test Result -----------------------
             var models = itemRepository.GetItems();
             CollectionAssert.Contains(models, item);
         }
 
         [Test]
-        public void Add_GivenValidationError_ShouldNotAddItemToCatalogue()
+        public void Create_GivenValidationError_ShouldNotAddItemToCatalogue()
         {
             //---------------Set up test pack-------------------
             var itemRepository = CreateConcreteRepository();
@@ -82,46 +82,46 @@ namespace WhereIsMyShit.Tests
             //---------------Assert Precondition----------------
             CollectionAssert.DoesNotContain(itemModels, itemModel);
             //---------------Execute Test ----------------------
-            itemsController.Add(itemModel);
+            itemsController.Create(itemModel);
             //---------------Test Result -----------------------
             var models = itemRepository.GetItems();
             CollectionAssert.DoesNotContain(models, itemModel);
         }
 
         [Test]
-        public void Add_GivenItem_ShouldShowCatalogueOfItems()
+        public void Create_GivenItem_ShouldShowCatalogueOfItems()
         {
             //---------------Set up test pack-------------------
             var itemsController = CreateSut();
             var itemModel = CreateItem("something");
             //---------------Execute Test ----------------------
-            var actionResult = itemsController.Add(itemModel) as RedirectToRouteResult;
+            var actionResult = itemsController.Create(itemModel) as RedirectToRouteResult;
             //---------------Test Result -----------------------
             Assert.AreEqual("Index", actionResult.RouteValues["action"]);
         }
 
         [Test]
-        public void Add_GivenValidationError_ShouldStayOnSamePage()
+        public void Create_GivenValidationError_ShouldStayOnSamePage()
         {
             //---------------Set up test pack-------------------
             var itemsController = CreateSut();
             itemsController.ModelState.AddModelError("Name", "cake");
             var itemModel = CreateItem("");
             //---------------Execute Test ----------------------
-            var actionResult = itemsController.Add(itemModel) as ViewResult;
+            var actionResult = itemsController.Create(itemModel) as ViewResult;
             //---------------Test Result -----------------------
-            Assert.AreEqual("Add", actionResult.ViewName);
+            Assert.AreEqual("Create", actionResult.ViewName);
         }
         
         [Test]
-        public void Add_GivenValidationError_ShouldReturnTheModel()
+        public void Create_GivenValidationError_ShouldReturnTheModel()
         {
             //---------------Set up test pack-------------------
             var itemsController = CreateSut();
             itemsController.ModelState.AddModelError("Name", "cake");
             var itemModel = CreateItem("");
             //---------------Execute Test ----------------------
-            var actionResult = itemsController.Add(itemModel) as ViewResult;
+            var actionResult = itemsController.Create(itemModel) as ViewResult;
             //---------------Test Result -----------------------
             Assert.AreEqual(itemModel, actionResult.Model);
         }
